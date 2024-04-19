@@ -16,14 +16,15 @@ private:
     std::vector<GattCharacteristic> gattChars;
     std::vector<std::string> notConnectedAddresses;
     std::vector<std::string> connectedAddresses;
-
+    
     SingletonCharacteristics()
     {
     }
 
 public:
 
-    std::function<void(char*)> gui_cb = nullptr;
+    std::function<void(char*, void*)> gui_cb = nullptr;
+    void* context;
     // deleting copy constructor
     SingletonCharacteristics(const SingletonCharacteristics& obj) = delete;
 

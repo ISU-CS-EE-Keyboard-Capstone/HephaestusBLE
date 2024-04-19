@@ -72,6 +72,6 @@ std::string winrtGuidToString(winrt::guid);
 
 void ShowDesktop(std::string input);
 
-void startBLE(std::function<void(char*)> set_gui_cb = nullptr);
+void startBLE(void* context, std::function<void(char*, void*)> set_gui_cb);
 
-void set_cb(std::function<void(char*)> set_gui_cb);
+void set_cb(std::function<void(char*, void*)> set_gui_cb, void* context);

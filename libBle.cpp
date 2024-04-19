@@ -231,7 +231,7 @@ void characteristic_value_changed(GattCharacteristic const&, GattValueChangedEve
     SingletonCharacteristics* sc = SingletonCharacteristics::getInstance();
     if (sc->gui_cb != nullptr)
     {
-        sc->gui_cb(&test);
+        sc->gui_cb(&test, sc->context);
     }
     /*
     for (int i = 0; i < args.CharacteristicValue().Length(); i++)
@@ -284,11 +284,11 @@ void ShowDesktop(std::string arduinoInpt)
 }
 
 
-void startBLE(std::function<void(char*)> set_gui_cb)
+void startBLE(void* context, std::function<void(char*, void*)> set_gui_cb)
 {
     if (set_gui_cb != nullptr)
     {
-        set_cb(set_gui_cb);
+        set_cb(set_gui_cb, context);
     }
 
 
@@ -310,8 +310,9 @@ void startBLE(std::function<void(char*)> set_gui_cb)
     winBleLib.stop();
 }
 
-void set_cb(std::function<void(char*)> set_gui_cb)
+void set_cb(std::function<void(char*, void*)> set_gui_cb, void* context)
 {
     SingletonCharacteristics* sc = SingletonCharacteristics::getInstance();
     sc->gui_cb = set_gui_cb;
+    sc->context = context;
 }
